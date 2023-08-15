@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <link rel="stylesheet" href="index.css">
+
+    <script type='text/javascript' src='https://www.bing.com/api/maps/mapcontrol?setmkt=en-us&key=AmVbtvgOXFY4_thip2ryjIn3MG1TtC0lDnaTN0vK7DFAmCuh2PDkk2JTxASc_rBy&callback=getMap' async defer></script>
+    <script>
+
+                let msg = document.getElementById('alert');
+                
+                var map;
+                function getMap() {
+                    map = new Microsoft.Maps.Map(document.getElementById('mapCanvas'), {});
+                }
+
+                function getLocation()
+                {
+                    if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(function (position) {
+          var currentLocation = new Microsoft.Maps.Location(position.coords.latitude, position.coords.longitude);
+          map.setView({ center: currentLocation, zoom: 15 });
+          
+          // Add a pushpin at the current location
+          var pin = new Microsoft.Maps.Pushpin(currentLocation);
+          map.entities.push(pin);
+        }, function (error) {
+          msg.style.display = block;
+          msg.innerHTML = "An Error Occured try again!!"
+        });
+      } else {
+            msg.style.display = block;
+            msg.innerHTML = "Geolocation is not supported by this browser."
+
+      }
+      
+    }
+
+                
+                
+    </script>
+    <style>
+
+        #mapCanvas
+        {
+            width:40vw;
+            height:40vw;
+            border: 2px solid #6e6e6e;
+            border-radius: 5vh;
+            box-shadow: 1vh 2vh 1em 1vh #dcdbdb;
+            margin-top: 5vh;
+            margin-bottom: 10vh;
+            overflow: hidden;
+        }
+
+
+    </style>
+    <title>Bing Map</title>
+</head>
+<body>
+    <header>
+        <h1>GEOLOCATION - BING MAP API</h1>
+   
+    </header>
+    <div class="container-xs btn-div">
+        <button type="button" onclick = 'getLocation()' id = "getLoc" class="btn  btn-outline-primary ">Get My Location</button>
+    </div>
+    <div id = "alert" class="alert alert-danger" role="alert">
+        An Error Occured try again!!
+      </div>
+    <div id = "mapCanvas">
+
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+</body>
+</html>
+
+  
+  
